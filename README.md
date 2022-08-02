@@ -1,6 +1,6 @@
 # DOCKER PIPELINE RUNNER
 ## SETUP 
- Using this repos assumes you already have docker installed in your local computer. The steps you see in the SETUP session are the ones you need to run once to have the docker runner image setup and ready to be used by your Docker local engine. It is not the scope of the present repo to detail the installation docker itself (or docker desktop) in all different environments.
+ It is not the scope of the present repo to detail the installation of docker itself (or docker desktop) in all different environments, for this reason this instructions assume you have docker installed in your local computer. The steps you see in the SETUP session are the ones you need to run just once so that you prepare a docker image that will be used to run the pipelines.
 
  1 First clone the docker runner repo
 
