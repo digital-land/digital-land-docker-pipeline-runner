@@ -45,8 +45,6 @@
 
     pipenv shell
 
----
-
 4 Open the file '03-prepare-collection.sh' and set the variable **COLLECTION_REPO_NAME** to the collection you want to test/work with.
 
 5 To prepare folders and files for a collection:
