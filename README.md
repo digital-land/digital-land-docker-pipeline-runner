@@ -2,9 +2,10 @@
 ## SETUP 
  It is not the scope of the present repo to detail the installation of docker itself (or docker desktop) in all different environments, for this reason this instructions assume you have docker installed in your local computer. The steps you see in the SETUP session are the ones you need to run just once so that you prepare a docker image that will be used to run the pipelines.
 
- 1 First clone the docker runner repo
+ 1 First clone the docker runner repo and change directories to get inside it
 
-    git clone git@github.com:rico-farina-mt/docker_experiments.git
+    git clone https://github.com/digital-land/digital-land-docker-pipeline-runner.git
+    cd digital-land-docker-pipeline-runner
 
  2 Build the docker image for the runner
 
