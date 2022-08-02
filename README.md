@@ -180,6 +180,11 @@ Clone the repo (using area of outstanding natural beauty as example):
 
     git clone https://github.com/digital-land/area-of-outstanding-natural-beauty-collection.git
 
+Change directory to the one you just cloned
+
+    cd area-of-outstanding-natural-beauty-collection
+    (the dir name will be the same as the name of the repo cloned)
+
 Prepare for execution
 
     make makerules
