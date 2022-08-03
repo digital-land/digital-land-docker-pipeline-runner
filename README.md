@@ -17,9 +17,10 @@
 
  4 Your terminal will now be inside the container, keep that terminal running and open one more terminal window so that the second one is not inside the container.
 
- 5 On the terminal that is not inside the container copy the digital-land-python  folder from inside the container to your local area with:
+ 5 On the terminal that is not inside the container we need to copy 2 folders from inside the container to your local for transparancy, so we can see the virtual env packages and digital-land dir:
 
     docker cp pr_installation_container:/src/digital-land-python `pwd`/digital-land-python
+    docker cp pr_installation_container:/root/.local/share/virtualenvs/ `pwd`/virtual_envs
 
 6 Go back to first terminal and exit to bring down the installation container:
     
@@ -35,7 +36,7 @@
 
 1 To create a new pipeline runner container from the image run:
 
-    docker run -it --name pipeline_runner_cont -p 8001:8001 -v `pwd`/pipeline_runner:/src/pipeline_runner  -v `pwd`/digital-land-python:/src/digital-land-python -v `pwd`/sharing_area:/src/sharing_area bionic_pipe_runner
+    docker run -it --name pipeline_runner_cont -p 8001:8001 -v `pwd`/pipeline_runner:/src/pipeline_runner  -v `pwd`/digital-land-python:/src/digital-land-python -v `pwd`/sharing_area:/src/sharing_area -v `pwd`/virtual_envs:/root/.local/share/virtualenvs/ bionic_pipe_runner
 
 2 To start an existing container in interactive mode run:
 
@@ -161,12 +162,20 @@
 
 If you need to create a new pipeline runner container from the image run:
 
-    docker run -it --name pipeline_runner_cont -p 8001:8001 -v `pwd`/pipeline_runner:/src/pipeline_runner  -v `pwd`/digital-land-python:/src/digital-land-python -v `pwd`/sharing_area:/src/sharing_area bionic_pipe_runner
+    docker run -it --name pipeline_runner_cont -p 8001:8001 -v `pwd`/pipeline_runner:/src/pipeline_runner  -v `pwd`/digital-land-python:/src/digital-land-python -v `pwd`/sharing_area:/src/sharing_area -v `pwd`/virtual_envs:/root/.local/share/virtualenvs/ bionic_pipe_runner
 
 To start an existing container in interactive mode run (use the same name as when created):
 
     docker start -ai pipeline_runner_cont
- 
+
+To run clonned packages you need to change the temp directory used to unzip files, on your local machine:
+
+    Open the file:
+    /virtual_envs/pipeline_runner-Aa5TfYuL/src/digital-land/digital_land/cli.py
+
+    Just before the definition of the function *pipeline_cmd_API*, change the custom_temp_dir default from None to "my_temp_dir"
+
+
 Inside docker runner you need to activate the virtual env:
     
     pipenv shell
@@ -186,10 +195,13 @@ Change directory to the one you just cloned
 
 Prepare for execution
 
+    mkdir my_temp_dir
     make makerules
     make init 
 
 Run the collection and execution
 
     make collect
-    make
+    make collection
+    make transformed
+    make dataset
