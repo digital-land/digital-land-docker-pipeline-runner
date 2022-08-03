@@ -8,7 +8,8 @@ RUN apt-get update -y && \
     apt-get install apt-utils -y && \
     apt-get install git curl build-essential -y && \
     apt install software-properties-common -y && \
-    apt-get install time
+    apt-get install time -y && \
+    apt-get install vim -y
 
 # 3 GDAL & SQLite 
 # Info: GDAL 3.0.4 & sqlite3 --version 3.31.1
