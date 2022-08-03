@@ -7,8 +7,8 @@
     git clone https://github.com/digital-land/digital-land-docker-pipeline-runner.git
     cd digital-land-docker-pipeline-runner
 
- 2 Build the docker image for the runner
-
+ 2 If you use VS studio code we suggest opening the folder you just created by cloning as your workspace and then open a new terminal and run:
+ 
     docker build -t pipe_runner_img .
 
  3 Start a installation container (to be able to mirror an internal folder into host)
