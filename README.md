@@ -17,7 +17,7 @@
 
  4 Your terminal will now be inside the container, keep that terminal running and open one more terminal window so that the second one is not inside the container.
 
- 5 On the terminal that is not inside the container we need to copy 2 folders from inside the container to your local for transparancy, so we can see the virtual env packages and digital-land dir:
+ 5 On the terminal that is not inside the container make sure you are inside the dir 'digital-land-docker-pipeline-runner' that was created when you cloned the repo. Now, we need to copy 2 folders from inside the container to your local for transparancy, so we can see them inside the docker when we run cod inside it:
 
     docker cp pr_installation_container:/src/digital-land-python `pwd`/digital-land-python
     docker cp pr_installation_container:/root/.local/share/virtualenvs/ `pwd`/virtual_envs
