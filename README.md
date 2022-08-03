@@ -9,11 +9,11 @@
 
  2 Build the docker image for the runner
 
-    docker build -t bionic_pipe_runner .
+    docker build -t pipe_runner_img .
 
  3 Start a installation container (to be able to mirror an internal folder into host)
 
-    docker run -it --name pr_installation_container bionic_pipe_runner
+    docker run -it --name pr_installation_container pipe_runner_img
 
  4 Your terminal will now be inside the container, keep that terminal running and open one more terminal window so that the second one is not inside the container.
 
@@ -36,7 +36,7 @@
 
 1 To create a new pipeline runner container from the image run:
 
-    docker run -it --name pipeline_runner_cont -p 8001:8001 -v `pwd`/pipeline_runner:/src/pipeline_runner  -v `pwd`/digital-land-python:/src/digital-land-python -v `pwd`/sharing_area:/src/sharing_area -v `pwd`/virtual_envs:/root/.local/share/virtualenvs/ bionic_pipe_runner
+    docker run -it --name pipeline_runner_cont -p 8001:8001 -v `pwd`/pipeline_runner:/src/pipeline_runner  -v `pwd`/digital-land-python:/src/digital-land-python -v `pwd`/sharing_area:/src/sharing_area -v `pwd`/virtual_envs:/root/.local/share/virtualenvs/ pipe_runner_img
 
 2 To start an existing container in interactive mode run:
 
@@ -162,7 +162,7 @@
 
 If you need to create a new pipeline runner container from the image run:
 
-    docker run -it --name pipeline_runner_cont -p 8001:8001 -v `pwd`/pipeline_runner:/src/pipeline_runner  -v `pwd`/digital-land-python:/src/digital-land-python -v `pwd`/sharing_area:/src/sharing_area -v `pwd`/virtual_envs:/root/.local/share/virtualenvs/ bionic_pipe_runner
+    docker run -it --name pipeline_runner_cont -p 8001:8001 -v `pwd`/pipeline_runner:/src/pipeline_runner  -v `pwd`/digital-land-python:/src/digital-land-python -v `pwd`/sharing_area:/src/sharing_area -v `pwd`/virtual_envs:/root/.local/share/virtualenvs/ pipe_runner_img
 
 To start an existing container in interactive mode run (use the same name as when created):
 
