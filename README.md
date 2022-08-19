@@ -1,5 +1,7 @@
 # DOCKER PIPELINE RUNNER
-## SETUP 
+
+## IMAGE CREATION STEPS (JUST NEEDED ONCE)
+
  It is not the scope of the present repo to detail the installation of docker itself (or docker desktop) in all different environments, for this reason this instructions assume you have docker installed in your local computer. The steps you see in the SETUP session are the ones you need to run just once so that you prepare a docker image that will be used to run the pipelines.
 
  1 First clone the docker runner repo and change directories to get inside it
@@ -44,6 +46,7 @@
  
 3 Inside docker runner you need to activate the virtual env:
 
+    cd /src/pipeline_runner
     pipenv shell
 
 4 Open the file '03-prepare-collection.sh' and set the variable **COLLECTION_REPO_NAME** to the collection you want to test/work with.
@@ -178,6 +181,7 @@ To run clonned packages you need to change the temp directory used to unzip file
 
 Inside docker runner you need to activate the virtual env:
     
+    cd /src/pipeline_runner
     pipenv shell
 
 Now if you are going to clone a collection repo you will want it to be cloned inside the sharing_area so you can see all files:
@@ -205,3 +209,41 @@ Run the collection and execution
     make collection
     make transformed
     make dataset
+
+# USING THE DOCKER PIPELINE RUNNER TO WRITE AND RUN EXPECTATIONS:
+
+First follow the image creation steps.
+
+If you are creating a new container use:
+
+    docker run -it --name new_pipeline_runner_cont -p 8001:8001 -v `pwd`/pipeline_runner:/src/pipeline_runner  -v `pwd`/digital-land-python:/src/digital-land-python -v `pwd`/sharing_area:/src/sharing_area -v `pwd`/virtual_envs:/root/.local/share/virtualenvs/ new_pipe_runner_img
+
+If you already have a container created and just want to re-start it, use:
+
+    docker start -ai new_pipeline_runner_cont
+
+Once your terminal is inside the container, make sure you are inside the virtual env of the pipeline runner, with:
+
+    cd /src/pipeline_runner
+    pipenv shell
+
+Still in the pipeline_runner folder, run the pipeline runner preparation bash to create some folders that the digital-land-python package expect to exist (don't worry about the collection name, any collection will do as this step is more to have the usual folder structure that the package expects):
+
+    cd /src/pipeline_runner
+    bash 03-prepare-collection.sh
+
+We suggest now creating a folder to store the datasets you want to run expectations against, a folder for your expectation yamls files and a folder for the results of expectations, in the sharing area:
+
+    cd /src/sharing_area/
+    mkdir datasets expectation_yamls expectation_results
+
+Now you can place the datasets in /src/sharing_area/datasets/ and write your yaml file and save in /src/sharing_area/expectation_yamls and run them using:
+
+    cd /src/pipeline_runner
+    digital-land expectations --results-path "src/sharing_area/expectations_results" --sqlite-dataset-path "/src/sharing_area/datasets/YOUR_DATASET.sqlite3" --data-quality-yaml "/src/sharing_area/expectation_yamls/YOUR_EXPECTATION_YAML.yaml"
+
+The results will be saved as jsons in "src/sharing_area/expectations_results", it you are writting yamls for several datasets we suggest creating a results folder for each dataset and use --results-path accodingly so that you can easily identify results of data quality for each dataset.
+
+Note 1: the command above runs from the pipeline_runner folder (to use the standard folders that the package requires)
+
+Note 2: we suggest the folders mentioned but you can use any folders you wish as long as you provide them in the arguments --results_path , --sqlite-dataset-path , -- data-quality-yaml
