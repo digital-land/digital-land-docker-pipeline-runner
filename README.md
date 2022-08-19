@@ -173,7 +173,7 @@ To start an existing container in interactive mode run (use the same name as whe
 
 To run clonned packages you need to change the temp directory used to unzip files, on your local machine:
 
-    Open the file:
+    Open the file (please note that the -Aa5TfYul part of the folder may be different for you as there is no guarantee of stability on the hash generation when creating a virtual env, so if for any reason you don't find the folder below, please navigate to /virtual_envs/ and see the name of the folder in your system):
     /virtual_envs/pipeline_runner-Aa5TfYuL/src/digital-land/digital_land/cli.py
 
     Just before the definition of the function *pipeline_cmd_API*, change the custom_temp_dir default from None to "my_temp_dir"
