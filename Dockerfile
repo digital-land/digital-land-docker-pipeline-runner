@@ -16,14 +16,17 @@ RUN apt-get update -y && \
 RUN add-apt-repository ppa:ubuntugis/ppa -y && \
     apt-get update -y && \
     apt-get install libpq-dev gdal-bin libgdal-dev -y && \
-    apt-get install sqlite3
-
+    apt-get install sqlite3 && \
+    apt-get install libsqlite3-mod-spatialite -y
 
 # 4 PYTHON 3.8
 RUN add-apt-repository ppa:deadsnakes/ppa -y && \
     apt-get update -y && \
     apt-get install python3.8 python3-distutils python3-pip python3-apt python3.8-dev -y && \
-    python3.8 -m pip install pipenv
+    python3.8 -m pip install pipenv && \
+    python3.8 -m pip install spatialite && \
+    python3.8 -m pip install pyyaml && \
+    python3.8 -m pip install dataclasses-json
 
 # 5 RUNNER BASH SCRIPTS
 COPY ./pipeline_runner /src/pipeline_runner
